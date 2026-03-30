@@ -1,0 +1,147 @@
+// tentei fazer uma pilha em C, ignorei algumas validacoes de dados mas algum dia eu arrumo
+
+
+#include <stdio.h>
+#define MAX 5
+
+typedef struct
+{
+
+    int dados[MAX];
+    int topo;
+
+} Pilha;
+
+void inicializar(Pilha *p)
+{
+
+    p->topo = -1;
+
+}
+
+int cheia(Pilha *p)
+{
+
+    return p->topo == MAX -1;
+
+}
+int vazia(Pilha *p)
+{
+
+    return p->topo == -1;
+}
+
+void empilhar(Pilha *p, int valor)
+{
+    if(cheia(p))
+    {
+        printf("Pilha cheia \n");
+        return;
+    }
+
+    p->topo++;
+    p->dados[p->topo]= valor;
+
+}
+
+int desempilhar(Pilha *p)
+{
+    if(vazia(p))
+    {
+        printf("Pilha vazia \n");
+        return -1;
+    }
+    int valor;
+
+    valor= p->dados[p->topo];
+    p->topo--;
+    return valor;
+
+}
+
+int peek(Pilha *p)
+{
+    if(vazia(p))
+    {
+
+        printf("Pilha vazia \n");
+        return -1;
+
+    }
+    int valor;
+    valor = p->dados[p->topo];
+    return valor;
+
+}
+
+void imprimir(Pilha *p)
+{
+
+    if(vazia(p))
+    {
+
+        printf("Pilha vazia \n");
+        return -1;
+    }
+    int i;
+    for(i=p->topo; i>=0; i--)
+    {
+        printf("%d \n",p->dados[i]);
+    }
+
+}
+
+
+
+
+int main()
+{
+    Pilha p;
+    int opcao;
+    int numero;
+    inicializar(&p);
+    while(opcao !=0)
+    {
+        printf("\n");
+        printf("1 - Empilhar \n");
+        printf("2 - Desempilhar \n");
+        printf("3 - Ver Topo \n");
+        printf("4 - Mostrar pilha \n");
+        printf("0 - Sair \n");
+        printf("\n");
+
+        scanf("%d",&opcao);
+        printf("\n");
+
+        switch(opcao)
+        {
+
+        case 1:
+
+            printf("Insira o valor a ser colocado na pilha: ");
+            scanf("%d",&numero);
+            empilhar(&p, numero);
+            printf("\n");
+            imprimir(&p);
+            printf("\n");
+            break;
+        case 2:
+            printf("O valor desempilhado e %d \n",desempilhar(&p));
+
+            break;
+
+        case 3:
+            printf("O valor no topo da pilha e: %d \n",peek(&p));
+
+            break;
+        case 4:
+            imprimir(&p);
+            break;
+        case 0:
+            return 0;
+            break;
+        }
+    }
+
+}
+
