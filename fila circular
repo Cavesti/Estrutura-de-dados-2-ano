@@ -1,0 +1,93 @@
+#include <stdio.h>
+#define MAX 5
+typedef struct {
+    int dados[MAX];
+    int inicio;
+    int fim;
+    int tamanho;
+
+
+} Fila;
+
+void inicializar(Fila *f) {
+
+    f->inicio=0;
+    f->fim=0;
+    f->tamanho=0;
+
+}
+
+int cheia(Fila *f) {
+
+    return f->tamanho == MAX;
+
+}
+
+int vazia(Fila *f) {
+
+    return f->tamanho == 0;
+
+}
+
+void enqueue(Fila *f, int valor) {
+
+    if(cheia(f)) {
+
+        printf("Fila cheia! \n");
+        return;
+
+    }
+    f->dados[f->fim]= valor;
+    f->fim = (f->fim + 1) % MAX;
+    f->tamanho++;
+}
+
+int dequeue(Fila *f) {
+
+    if(vazia(f)) {
+
+        printf("Fila vazia! \n");
+        return -1;
+
+    }
+    int valor = f->dados[f->inicio];
+    f->inicio = (f->inicio + 1) % MAX;
+    f->tamanho--;
+    return valor;
+}
+
+void imprimir(Fila *f) {
+
+    if(vazia(f)) {
+
+        printf("Fila vazia! \n");
+        return;
+
+    }
+    int i = f->inicio;
+    int count;
+    for(count=0; count < f->tamanho; count++) {
+
+        printf("%d ",f->dados[i]);
+        i = (i+1) % MAX ;
+
+    }
+    printf("\n");
+}
+
+int main() {
+
+    Fila f;
+    inicializar(&f);
+    enqueue(&f,10 );
+    enqueue(&f,20 );
+    enqueue(&f,30 );
+    imprimir(&f);
+    printf("Valor removido: %d \n",dequeue(&f));
+    printf("Valor removido: %d \n",dequeue(&f));
+    imprimir(&f);
+    enqueue(&f,40 );
+    enqueue(&f,50 );
+    imprimir(&f);
+}
+
