@@ -1,0 +1,119 @@
+// criei um exemplo de fila simples e estatica, apenas para consolidar a logica da mesma
+
+#include <stdio.h>
+#define MAX 6
+
+typedef struct Fila
+{
+    int id[MAX];
+    int inicio;
+    int fim;
+
+} Fila;
+
+void inicializar(Fila *f)
+{
+
+    f->inicio = 0;
+    f->fim = -1;
+
+}
+
+int vazia(Fila *f)
+{
+
+    return f-> inicio > f->fim;
+
+}
+
+int cheia(Fila *f)
+{
+
+    return f->fim == MAX - 1;
+
+}
+
+void enqueue(Fila *f, int cliente)
+{
+
+    if(cheia(f))
+    {
+
+        printf("Fila cheia! \n");
+        return;
+
+    }
+
+    f->fim++;
+    f->id[f->fim] = cliente;
+
+}
+
+int dequeue(Fila *f)
+{
+
+    if(vazia(f))
+    {
+
+        printf("Fila vazia! \n");
+        return -1;
+    }
+    int cliente;
+    cliente = f->id[f->inicio];
+    f->inicio++;
+    return cliente;
+}
+
+void imprimir(Fila *f)
+{
+
+    if(vazia(f))
+    {
+
+        printf("Fila vazia! \n");
+        return;
+    }
+
+    int i;
+    for(i = f->inicio; i <= f->fim; i++)
+    {
+
+        printf("%d ",f->id[i]);
+
+
+    }
+    printf("\n");
+}
+
+
+int main()
+{
+
+    Fila f;
+
+    inicializar(&f);
+
+    enqueue(&f, 5);
+    enqueue(&f, 15);
+    enqueue(&f, 25);
+    enqueue(&f, 35);
+
+    imprimir(&f);
+
+    printf("ID REMOVIDO: %d \n",dequeue(&f));
+    printf("ID REMOVIDO: %d \n",dequeue(&f));
+
+    imprimir(&f);
+
+    enqueue(&f, 45);
+    enqueue(&f, 55);
+
+    imprimir(&f);
+
+
+
+}
+
+
+
+
